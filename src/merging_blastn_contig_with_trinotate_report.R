@@ -25,7 +25,7 @@ ordered_GO_counts <- GO_counts[order(-GO_counts$count),]
 
 ggplot(ordered_GO_counts, aes(x = reorder(ordered_GO_counts$Last_GO_term, -count), y=ordered_GO_counts$count))+
   theme(axis.text.x = element_text(angle = 65, hjust = 1))+
-  geom_col()+xlab("GO Annotation Term")+ylab("No. of Contigs")
+  geom_col()+xlab("GO Annotation")+ylab("No. of Contigs")
 
 fwrite(ordered_GO_counts, "output/contig_blast_transcriptome/ordered_GO_counts.csv")
 
