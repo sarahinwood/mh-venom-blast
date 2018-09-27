@@ -38,7 +38,7 @@ number.contigs <- contigs_annots[!is.na(`contig_id`), length(unique(`contig_id`)
 
 #Draw Venn Diagram
 Set1 <- RColorBrewer::brewer.pal(3, "Set1")
-vd <- venn.diagram(x = list("Pfam"=pfam, "BlastX"=blastx, "Kegg"=kegg), filename=NULL, fill=Set1, alpha=0.5, cex = 1, cat.cex=1, lwd=1, main=paste("Total Number of Annotated Contigs = ", number.contigs))
+vd <- venn.diagram(x = list("Pfam"=pfam, "BlastX"=blastx, "Kegg"=kegg), filename=NULL, fill=Set1, alpha=0.5, cex = 1, cat.cex=1, lwd=1, main=paste("Contigs with hits in Mh transcriptome = ", number.contigs))
 grid.newpage()
 grid.draw(vd)
 
