@@ -2,7 +2,7 @@
 
 set -eu
 
-blast_db=output/mh_length_fil_db/mh_length_fil.db
+blast_db=output/uniprot_venom_db/uniprot_venom.db
 
 outdir="$(dirname "${blast_db}")"
 if [[ ! -e "${outdir}" ]]; then
@@ -10,8 +10,8 @@ if [[ ! -e "${outdir}" ]]; then
 fi
 
 makeblastdb \
-	-in data/mh_transcriptome_lengthfil.fasta \
-	-dbtype nucl \
-	-title mh_length_filtered_transcriptome \
-	-out output/mh_length_fil_db/mh_length_fil_db \
+	-in data/uniprot_toxin_venom_db.fasta \
+	-dbtype prot \
+	-title uniprot_venom_db \
+	-out output/uniprot_venom_db/uniprot_venom_db \
 	-parse_seqids
