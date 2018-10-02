@@ -16,6 +16,7 @@ fwrite(blast_w_annotations, "output/contig_blast_transcriptome/blastn_w_trinotat
 
 ##read back in annotated contigs & play with file
 contigs_annots <- fread("output/contig_blast_transcriptome/dedup_blastn_w_trinotate_annotations.csv", na.strings = ".")
+##GO counts
 contigs_annots_GO <- contigs_annots[,tstrsplit(gene_ontology_blast, "`", fixed = TRUE, keep=1)]
 contigs_last_GO_term <- contigs_annots_GO[,tstrsplit(V1, "^", fixed=TRUE, keep=3)]
 contigs_last_GO_term$V1[is.na(contigs_last_GO_term$V1)] <- "none"
@@ -28,6 +29,15 @@ ggplot(ordered_GO_counts, aes(x = reorder(ordered_GO_counts$Last_GO_term, -count
   geom_col()+xlab("GO Annotation")+ylab("No. of Contigs")
 
 fwrite(ordered_GO_counts, "output/contig_blast_transcriptome/ordered_GO_counts.csv")
+
+##eggnog term counts
+contigs_annots_eggnog <- contigs_annots[,tstrsplit(eggnog, "^", fixed = TRUE, keep=2)]
+contigs_annots_eggnog$V1[is.na(contigs_annots_eggnog$V1)] <- "none"
+eggnog_counts <- data.table(table(contigs_annots_eggnog))
+setnames(eggnog_counts, old=c("contigs_annots_eggnog", "N"), new=c("eggnog_term", "count"))
+ordered_eggnog_counts <- eggnog_counts[order(-eggnog_counts$count),]
+
+fwrite(ordered_eggnog_counts, "output/contig_blast_transcriptome/ordered_egnogg_counts.csv")
 
 ##Get info for annotation venn diagram
 pfam <- contigs_annots[!is.na(Pfam), unique(`contig_id`)]
