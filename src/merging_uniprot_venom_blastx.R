@@ -14,4 +14,12 @@ uniprot_db_names_split$V1 <- NULL
 setnames(uniprot_db_names_split, old=c("V2", "V3"), new=c("uniprot_venom_id", "uniprot_annotation"))
 
 contig_uniprot_blastx <- merge(uniprot_venom_results, uniprot_db_names_split, by.x= "uniprot_venom_id", by.y = "uniprot_venom_id")
+##Check sum of unique contig IDs
+contig_uniprot_blastx[, unique(contig_id)]
+
 fwrite(contig_uniprot_blastx, "output/uniprot_venom_contigs/contig_uniprot_blastx_annotations.csv")
+
+##then manually sort and keep only lowest E-value annotation for each contig
+dedup_annots <- fread("output/uniprot_venom_contigs/dedup_contig_uniprot_blastx_annotations.csv")
+##check no. contigs = no. unique contig ids from earlier
+unique <- dedup_annots[, unique(contig_id)]
