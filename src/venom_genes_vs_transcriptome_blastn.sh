@@ -10,7 +10,7 @@ if [[ ! -e "${outdir}" ]]; then
 fi
 
 blastn \
-	-query data/mh_venom_sequencing_contigs.fasta \
+	-query data/mh_venom_nt.fasta \
 	-db output/mh_length_fil_db/mh_length_fil_db \
 	-num_threads 50 \
-	-outfmt 6 > output/contig_blast_transcriptome/blastn.outfmt6
+	-outfmt 6 > output/venom_gene_blast_transcriptome/blastn.outfmt6
